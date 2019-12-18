@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:title="帮助">
+        <menu>
+        <item
+            android:id="@+id/nav_function"
+            android:icon="@mipmap/hanshu"
+            android:title="全部函数" />
+        <item
+            android:id="@+id/nav_linear"
+            android:icon="@mipmap/juzhen"
+            android:title="线性代数" />
+       <item
+            android:id="@+id/nav_vector"
+            android:icon="@mipmap/xiangliang"
+            android:title="向量" />
+        <item
+            android:id="@+id/nav_probability"
+            android:icon="@mipmap/gailv"
+            android:title="概率论与数理统计" />
+        <item
+            android:id="@+id/nav_geometry"
+            android:icon="@mipmap/jihe"
+            android:title="几何" />
+         <item
+             android:id="@+id/nav_Calculus"
+             android:icon="@mipmap/weijifen"
+             android:title="微积分" />
+        <item
+            android:id="@+id/nav_Algebra"
+            android:icon="@mipmap/daishu"
+            android:title="代数" />
+         <item
+             android:id="@+id/nav_census"
+             android:icon="@mipmap/tongji"
+             android:title="统计" />
+        </menu>
+        </item>
+    </group>
+
+    <item android:title="应用">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="分享" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@mipmap/guanyu"
+                android:title="关于" />
+        </menu>
+    </item>
+
+</menu>

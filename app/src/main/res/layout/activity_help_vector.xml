@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.com.redcrad.help_matrixActivity">
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            >
+            <Button
+                android:id="@+id/vector_model"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="模：model(5,3,2)"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:id="@+id/vector_dot"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="数量积: dot((1,2,3),(1,2,3))"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:id="@+id/vector_cos"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="向量夹角余弦值: cos((1,2,3),(1,2,3))"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:id="@+id/vector_dc"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="方向余弦: dc(1,2,3)"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:id="@+id/vector_pro"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="投影: projection((1,2,3),(1,2,3))"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:id="@+id/vector_product"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="向量积: product((1,2,3),(1,2,3))"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:id="@+id/vector_da"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="方向角: da(1,2,3)"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:id="@+id/vector_sd"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="同向单位向量: sd(1,2,3)"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:id="@+id/vector_od"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="反向单位向量: od(1,2,3)"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+            <Button
+                android:id="@+id/vector_mixed"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="混合积: mixed((1,2,3),(1,2,3),(1,2,3))"
+                android:textSize="13dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
