@@ -1,6 +1,7 @@
 package com.example.com.redcrad;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
 import com.google.android.material.navigation.NavigationView;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar =findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        check= new String[]{"diff", "inte","nointe","limit","eva","equ","tequ","simp","tsimp","summ","com","nop","model","dot","cos","dc","projection","product","da","sd","od","mixed","det","norm"};
+        check= new String[]{"eig","dim","trace","diff", "inte","nointe","limit","eva","equ","tequ","simp","tsimp","summ","com","nop","model","dot","cos","dc","projection","cross","da","sd","od","mixed","det","norm","rank","gs"};
         text = (EditText) findViewById(R.id.t1);
         out= (TextView) findViewById(R.id.out);
         pi=(Button)findViewById(R.id.pi);
@@ -168,9 +170,12 @@ public class MainActivity extends AppCompatActivity
         gR.setOnClickListener(this);
         jisuan.setOnClickListener(this);
         pi.setOnClickListener(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            text.setShowSoftInputOnFocus(false);
+        }
+
         initPython();
     }
-
     void initPython(){
         if (! Python.isStarted()) {
              Python.start(new AndroidPlatform(this));
@@ -196,19 +201,19 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {                  //帮助
         int id = item.getItemId();
         if (id == R.id.action_help) {
-            return true;
+            Intent intent=new Intent(MainActivity.this,helpActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_function)
-        {
-            Toast.makeText(this, "(*/ω＼*) 别看我，我还没准备好", Toast.LENGTH_LONG).show();
-        } else if (id == R.id.nav_linear)
+//        if (id == R.id.nav_function)
+//        {
+//            Toast.makeText(this, "(*/ω＼*) 别看我，我还没准备好", Toast.LENGTH_LONG).show();
+//        } else
+        if (id == R.id.nav_linear)
         {
             Intent intent=new Intent(MainActivity.this,help_matrixActivity.class);
             startActivityForResult(intent, 1);
@@ -233,21 +238,22 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent(MainActivity.this,help_algebraActivity.class);
             startActivityForResult(intent, 5);
         }
-        else if (id == R.id.nav_geometry)
-        {
-            Toast.makeText(this, "(*/ω＼*) 别看我，我还没准备好", Toast.LENGTH_LONG).show();
-        }
-        else if (id == R.id.nav_census)
-        {
-            Toast.makeText(this, "(*/ω＼*) 别看我，我还没准备好", Toast.LENGTH_LONG).show();
-        }
-        else if(id==R.id.nav_share)
-        {
-            Toast.makeText(this, "ο(=•ω＜=)ρ⌒☆ 亲爱的内测用户，我还没有准备好，先不要分享哦", Toast.LENGTH_LONG).show();
-        }
+//        else if (id == R.id.nav_geometry)
+//        {
+//            Toast.makeText(this, "(*/ω＼*) 别看我，我还没准备好", Toast.LENGTH_LONG).show();
+//        }
+//        else if (id == R.id.nav_census)
+//        {
+//            Toast.makeText(this, "(*/ω＼*) 别看我，我还没准备好", Toast.LENGTH_LONG).show();
+//        }
+//        else if(id==R.id.nav_share)
+//        {
+//            Toast.makeText(this, "ο(=•ω＜=)ρ⌒☆ 亲爱的内测用户，我还没有准备好，先不要分享哦", Toast.LENGTH_LONG).show();
+//        }
         else if(id==R.id.nav_about)
         {
-            Toast.makeText(this, "Σ(っ °Д °;)っ 有bug找2728849348，错都是他写的", Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(MainActivity.this,aboutActivity.class);
+            startActivity(intent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -1113,11 +1119,27 @@ public class MainActivity extends AppCompatActivity
             }
             if(!bool)
             {
-                Intent intent=new Intent(MainActivity.this,showActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putCharSequence("out", text.getText().toString());
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if(flag.contains(",")) {
+                    Intent intent = new Intent(MainActivity.this, showActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putCharSequence("out", text.getText().toString());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+                else
+                {
+                    try {
+                        Python py = Python.getInstance();
+                        PyObject obj1 = py.getModule("real").callAttr("cal", Operation.transFrom_form(flag));
+                        String expr = obj1.toJava(String.class);
+                        out.setText("");
+                        out.append(Operation.transFrom_form_out(expr));
+                    }catch (Exception e)
+                    {
+                        out.setText("");
+                        out.append("请检查输入格式是否正确");
+                    }
+                }
             }
         }
         if(v.getId()==R.id.pi)
